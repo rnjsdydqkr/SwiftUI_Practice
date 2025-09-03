@@ -10,18 +10,18 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         
-        ZStack(alignment: .bottomTrailing) {
-            Color.clear
-            Text("Hello Picture")
-                .font(.largeTitle)
-                .foregroundStyle(.black)
-                .padding(.trailing, 10)
-        }.background(
-             Image("2")
-                .resizable(capInsets: .init(top: 100, leading: 0, bottom: 0, trailing: 0), resizingMode: .stretch)
-//                 .edgesIgnoringSafeArea(.all)
-//                 .aspectRatio(contentMode: .fit)
-        )
+        Text("Hello asdf asdf asdf \n\n\n\n\nasdf Picture")
+            .foregroundColor(.white)
+            .font(.largeTitle)
+            .fixedSize()
+            .padding(.leading, 20)
+            .padding(.trailing, 20)
+            .padding(.top, 10)
+            .padding(.bottom, 10)
+            .background(
+                Image("2")
+                    .resizable(capInsets: .init(top: 50, leading: 50, bottom: 50, trailing: 50), resizingMode: .stretch)
+            )
             
     }
 }
