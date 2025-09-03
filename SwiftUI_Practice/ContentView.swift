@@ -9,22 +9,24 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        ZStack {
-            Color.gray
-                .edgesIgnoringSafeArea(.all)
-            VStack {
-                Text("Hello, world!")
-                    .foregroundColor(.blue)
-                    .font(.largeTitle)
-                    .padding(10)
-                    .background(Color.green)
-                    .padding(10)
-                    .background(Color.brown)
-                Text("wow")
-                Text("wow")
-                Text("wow")
-            }
-        }
+        Text("Hellow Hellow")
+            .italic()
+            .underline()
+            .font(.title)
+            .padding(.trailing, 10)
+            .frame(width: 200, height: 50, alignment: .center)
+            .background(Color.yellow)
+            .cornerRadius(25)
+            .padding(10)
+            .overlay(content: {
+                RoundedRectangle(cornerRadius: 25)
+                    .stroke(Color.blue, lineWidth: 5)
+            })
+            .padding(10)
+            .overlay(content: {
+                RoundedRectangle(cornerRadius: 25)
+                    .stroke(Color.blue, lineWidth: 5)
+            })
     }
 }
 
