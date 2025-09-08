@@ -7,43 +7,50 @@
 
 import SwiftUI
 
-struct LocationInfo: Identifiable {
-    var id = UUID()
-    var city = ""
-    var weather = ""
-    
-    var cityPresenter: some View {
-        Text(city)
-    }
-    
-    func cityPresenterWithIndex(_ index: Int) -> some View {
-        Text("\(index) " + city)
-    }
-}
-
 struct ContentView: View {
     
-    var locations = [
-        LocationInfo(city: "seoul", weather: "sunny"),
-        LocationInfo(city: "Busan", weather: "cloudy"),
-        LocationInfo(city: "C", weather: "cloudy"),
-        LocationInfo(city: "D", weather: "sunny"),
-        LocationInfo(city: "E", weather: "rain"),
-        LocationInfo(city: "F", weather: "sunny"),
-        LocationInfo(city: "G", weather: "cloudy"),
-        LocationInfo(city: "H", weather: "rain")
-    ]
+    @State private var users = ["kim", "min", "lee", "su"]
     
     var body: some View {
-        List {
-//            ForEach(locations) { location in
-//                location.cityPresenter
-//            }
-            
-            ForEach(0..<locations.count, id: \.self) { index in
-//                Text("\(index) " + self.locations[index].weather)
-                self.locations[index].cityPresenterWithIndex(index)
+        NavigationView {
+            List {
+                Section(header:
+                    Text("Head")
+                    .font(.largeTitle)
+                    .padding(20)
+                ) {
+                    ForEach(users, id: \.self) { name in
+                        Text(name)
+                    }
+                    .onDelete(perform: deleteItem)
+    //                .onDelete { indexSet in
+    //                    if let findIndex = indexSet.first {
+    //                        self.users.remove(at: findIndex)
+    //                    }
+    //                }
+                    .onMove(perform: moveItem)
+    //                .onMove { indexSet, destinationInt in
+    //                    self.users.move(fromOffsets: indexSet, toOffset: destinationInt)
+    //                }
+                }
             }
+            .navigationBarItems(leading: EditButton())
+            .navigationBarItems(trailing:
+                Button(action: {
+                self.users.append("new name")
+            }, label: {
+                Image(systemName: "plus")
+            })
+            )
+            .navigationBarTitle("navi title")
+        }
+    }
+    func moveItem(idx: IndexSet, int: Int) {
+        self.users.move(fromOffsets: idx, toOffset: int)
+    }
+    func deleteItem(idx: IndexSet) {
+        if let hasIndex = idx.first {
+            self.users.remove(at: hasIndex)
         }
     }
 }
