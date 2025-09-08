@@ -7,46 +7,43 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct LocationInfo: Identifiable {
+    var id = UUID()
+    var city = ""
+    var weather = ""
     
-    @State private var isSelectedState = false
-    
-    var buttonColor: Color {
-        if isSelectedState {
-            return .red
-        } else {
-            return .blue
-        }
+    var cityPresenter: some View {
+        Text(city)
     }
     
-    var body: some View {
-        VStack {
-            Text("Hellow, world!")
-            Text("isSelectedState : \(self.isSelectedState)")
-            
-            Button("Trash") {
-                print("hoho")
-                self.isSelectedState.toggle()
-            }
-            
-            Button {
-                print("hi")
-            } label: {
-                HStack {
-                    Image(systemName: "pencil")
-                        .foregroundColor(.red)
-                        .font(.largeTitle)
-                    
-                    Text("Share")
-                        .foregroundStyle(buttonColor)
-                        .font(.largeTitle)
-                    
-                    Image(systemName: "pencil")
-                        .foregroundColor(.red)
-                        .font(.largeTitle)
-                }
-            }
+    func cityPresenterWithIndex(_ index: Int) -> some View {
+        Text("\(index) " + city)
+    }
+}
 
+struct ContentView: View {
+    
+    var locations = [
+        LocationInfo(city: "seoul", weather: "sunny"),
+        LocationInfo(city: "Busan", weather: "cloudy"),
+        LocationInfo(city: "C", weather: "cloudy"),
+        LocationInfo(city: "D", weather: "sunny"),
+        LocationInfo(city: "E", weather: "rain"),
+        LocationInfo(city: "F", weather: "sunny"),
+        LocationInfo(city: "G", weather: "cloudy"),
+        LocationInfo(city: "H", weather: "rain")
+    ]
+    
+    var body: some View {
+        List {
+//            ForEach(locations) { location in
+//                location.cityPresenter
+//            }
+            
+            ForEach(0..<locations.count, id: \.self) { index in
+//                Text("\(index) " + self.locations[index].weather)
+                self.locations[index].cityPresenterWithIndex(index)
+            }
         }
     }
 }
