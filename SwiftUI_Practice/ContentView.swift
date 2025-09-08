@@ -8,39 +8,38 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var isSelectedState = false
+    
     var body: some View {
-        VStack(spacing: 10) {
-            Image(systemName: "lightbulb.max.fill")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 200, height: 200)
-                .foregroundStyle(.yellow)
-                .background(Color.blue)
+        VStack {
+            Text("Hellow, world!")
+            Text("isSelectedState : \(self.isSelectedState)")
             
-            Image(systemName: "lightbulb.max.fill")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 200, height: 200)
-                .foregroundStyle(.yellow)
-                .background(Color.blue)
+            Button("Trash") {
+                print("hoho")
+                self.isSelectedState.toggle()
+            }
+            
+            Button {
+                print("hi")
+            } label: {
+                HStack {
+                    Image(systemName: "pencil")
+                        .foregroundColor(.red)
+                        .font(.largeTitle)
+                    
+                    Text("Share")
+                        .foregroundStyle(.red)
+                        .font(.largeTitle)
+                    
+                    Image(systemName: "pencil")
+                        .foregroundColor(.red)
+                        .font(.largeTitle)
+                }
+            }
+
         }
-        
-//        Image("1")
-//            .resizable()
-//            .mask {
-//                ZStack {
-//                    Circle()
-//                        .offset(x: 0, y: -100)
-//                    
-//                    Circle()
-//                        .frame(width: 120, height: 120)
-//                        .offset(x: 80, y: 120)
-//                    
-//                    Circle()
-//                        .frame(width: 80, height: 80)
-//                        .offset(x: 120, y: 220)
-//                }
-//            }
     }
 }
 
