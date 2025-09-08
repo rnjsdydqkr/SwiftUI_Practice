@@ -11,6 +11,14 @@ struct ContentView: View {
     
     @State private var isSelectedState = false
     
+    var buttonColor: Color {
+        if isSelectedState {
+            return .red
+        } else {
+            return .blue
+        }
+    }
+    
     var body: some View {
         VStack {
             Text("Hellow, world!")
@@ -30,7 +38,7 @@ struct ContentView: View {
                         .font(.largeTitle)
                     
                     Text("Share")
-                        .foregroundStyle(.red)
+                        .foregroundStyle(buttonColor)
                         .font(.largeTitle)
                     
                     Image(systemName: "pencil")
