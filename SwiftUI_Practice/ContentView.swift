@@ -9,20 +9,38 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        
-        Text("Hello asdf asdf asdf \n\n\n\n\nasdf Picture")
-            .foregroundColor(.white)
-            .font(.largeTitle)
-            .fixedSize()
-            .padding(.leading, 20)
-            .padding(.trailing, 20)
-            .padding(.top, 10)
-            .padding(.bottom, 10)
-            .background(
-                Image("2")
-                    .resizable(capInsets: .init(top: 50, leading: 50, bottom: 50, trailing: 50), resizingMode: .stretch)
-            )
+        VStack(spacing: 10) {
+            Image(systemName: "lightbulb.max.fill")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 200, height: 200)
+                .foregroundStyle(.yellow)
+                .background(Color.blue)
             
+            Image(systemName: "lightbulb.max.fill")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 200, height: 200)
+                .foregroundStyle(.yellow)
+                .background(Color.blue)
+        }
+        
+//        Image("1")
+//            .resizable()
+//            .mask {
+//                ZStack {
+//                    Circle()
+//                        .offset(x: 0, y: -100)
+//                    
+//                    Circle()
+//                        .frame(width: 120, height: 120)
+//                        .offset(x: 80, y: 120)
+//                    
+//                    Circle()
+//                        .frame(width: 80, height: 80)
+//                        .offset(x: 120, y: 220)
+//                }
+//            }
     }
 }
 
