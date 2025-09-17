@@ -22,11 +22,21 @@ struct ContentView: View {
             
             Text(str)
             
-            Button {
-                self.str = "hi"
-            } label: {
-                Text("Click me")
-            }
+            MyButton(str: $str)
+            
+        }
+    }
+}
+
+struct MyButton: View {
+    
+    @Binding var str: String
+    
+    var body: some View {
+        Button {
+            self.str = "hi"
+        } label: {
+            Text("Click me")
         }
     }
 }
