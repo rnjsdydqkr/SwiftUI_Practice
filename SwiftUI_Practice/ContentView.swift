@@ -9,48 +9,24 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var users = ["kim", "min", "lee", "su"]
+    @State private var str = "hello"
     
     var body: some View {
-        NavigationView {
-            List {
-                Section(header:
-                    Text("Head")
-                    .font(.largeTitle)
-                    .padding(20)
-                ) {
-                    ForEach(users, id: \.self) { name in
-                        Text(name)
-                    }
-                    .onDelete(perform: deleteItem)
-    //                .onDelete { indexSet in
-    //                    if let findIndex = indexSet.first {
-    //                        self.users.remove(at: findIndex)
-    //                    }
-    //                }
-                    .onMove(perform: moveItem)
-    //                .onMove { indexSet, destinationInt in
-    //                    self.users.move(fromOffsets: indexSet, toOffset: destinationInt)
-    //                }
-                }
+        VStack {
+            
+            TextField("placeholder TF", text: $str)
+                .padding(20)
+                .background(.black.opacity(0.2))
+                .font(.largeTitle)
+                .padding(20)
+            
+            Text(str)
+            
+            Button {
+                self.str = "hi"
+            } label: {
+                Text("Click me")
             }
-            .navigationBarItems(leading: EditButton())
-            .navigationBarItems(trailing:
-                Button(action: {
-                self.users.append("new name")
-            }, label: {
-                Image(systemName: "plus")
-            })
-            )
-            .navigationBarTitle("navi title")
-        }
-    }
-    func moveItem(idx: IndexSet, int: Int) {
-        self.users.move(fromOffsets: idx, toOffset: int)
-    }
-    func deleteItem(idx: IndexSet) {
-        if let hasIndex = idx.first {
-            self.users.remove(at: hasIndex)
         }
     }
 }
