@@ -7,36 +7,30 @@
 
 import SwiftUI
 
-struct ContentView: View {
+class MyProfile: ObservableObject {
+    @Published var name = ""
+    @Published var age = 0
     
-    @State private var str = "hello"
-    
-    var body: some View {
-        VStack {
-            
-            TextField("placeholder TF", text: $str)
-                .padding(20)
-                .background(.black.opacity(0.2))
-                .font(.largeTitle)
-                .padding(20)
-            
-            Text(str)
-            
-            MyButton(str: $str)
-            
-        }
+    func changeProfile() {
+        self.name = "홍길동"
+        self.age = 20
     }
 }
 
-struct MyButton: View {
+struct ContentView: View {
     
-    @Binding var str: String
+    @ObservedObject var profile = MyProfile()
     
     var body: some View {
-        Button {
-            self.str = "hi"
-        } label: {
-            Text("Click me")
+        VStack {
+            Text("name: \(self.profile.name)")
+            Text("age: \(self.profile.age)")
+            
+            Button {
+                self.profile.changeProfile()
+            } label: {
+                Text("Click Me")
+            }
         }
     }
 }
