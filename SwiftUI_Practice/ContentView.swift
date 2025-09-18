@@ -7,31 +7,22 @@
 
 import SwiftUI
 
-class MyProfile: ObservableObject {
-    @Published var name = ""
-    @Published var age = 0
-    
-    func changeProfile() {
-        self.name = "홍길동"
-        self.age = 20
-    }
-}
-
 struct ContentView: View {
     
-    @ObservedObject var profile = MyProfile()
-    
     var body: some View {
-        VStack {
-            Text("name: \(self.profile.name)")
-            Text("age: \(self.profile.age)")
+        
+        HStack {
+            Text("Hello, World!")
             
-            Button {
-                self.profile.changeProfile()
-            } label: {
-                Text("Click Me")
+            GeometryReader { proxy in
+                VStack {
+                    Text("Hello, World!")
+                    Text("\(proxy.size.width)")
+                    Text("\(proxy.frame(in: .global).minX)")
+                }.position(x: proxy.size.width / 2, y: proxy.size.height / 2)
             }
         }
+        
     }
 }
 
