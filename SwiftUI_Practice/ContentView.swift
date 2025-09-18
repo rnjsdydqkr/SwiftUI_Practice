@@ -11,22 +11,19 @@ struct ContentView: View {
     
     @State var selectedDate = Date()
     
-    var presentDateStyle: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy년 MM월 dd일 HH:mm:ss"
-        return formatter.string(from: selectedDate)
+    var dateClosedRange: ClosedRange<Date> {
+        let startDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())
+        
+        let endDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())
+        
+        return startDate!...endDate!
     }
     
     var body: some View {
-        
-        VStack {
-            DatePicker("Date", selection: $selectedDate, displayedComponents: .date)
-                .labelsHidden()
-            
-            Text("\(presentDateStyle)")
-            Text("\(selectedDate.timeIntervalSince1970)")
+        DatePicker(selection: $selectedDate, in: dateClosedRange) {
+            Text("Select Date")
         }
-
+        .labelsHidden()
     }
 }
 
