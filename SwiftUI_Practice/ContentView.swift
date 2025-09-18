@@ -11,17 +11,18 @@ struct ContentView: View {
     
     var body: some View {
         
-        HStack {
-            Text("Hello, World!")
-            
-            GeometryReader { proxy in
-                VStack {
-                    Text("Hello, World!")
-                    Text("\(proxy.size.width)")
-                    Text("\(proxy.frame(in: .global).minX)")
-                }.position(x: proxy.size.width / 2, y: proxy.size.height / 2)
+        GeometryReader { proxy in
+            VStack {
+                Rectangle()
+                    .foregroundStyle(.red)
+                    .frame(height: proxy.size.height / 3)
+                Rectangle()
+                    .foregroundStyle(.blue)
+                Rectangle()
+                    .foregroundStyle(.orange)
             }
         }
+        .frame(width: 300, height: 300)
         
     }
 }
