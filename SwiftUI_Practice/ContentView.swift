@@ -8,22 +8,39 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     var body: some View {
         
-        GeometryReader { proxy in
-            VStack {
-                Rectangle()
-                    .foregroundStyle(.red)
-                    .frame(height: proxy.size.height / 3)
-                Rectangle()
-                    .foregroundStyle(.blue)
-                Rectangle()
-                    .foregroundStyle(.orange)
+        Button {
+            print(("selected"))
+        } label: {
+            HStack {
+                Image(systemName: "square.and.pencil")
+                    .font(.largeTitle)
+                Text("Edit")
+                    .font(.largeTitle)
             }
         }
-        .frame(width: 300, height: 300)
+        .buttonStyle(MyCustomButton())
         
+        Button {
+            print("button 2")
+        } label: {
+            Text("hi")
+        }
+        .buttonStyle(MyCustomButton())
+
+        
+    }
+}
+
+struct MyCustomButton: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+        .foregroundStyle(.white)
+        .padding(20)
+        .background(LinearGradient(colors: [.red, .blue], startPoint: .leading, endPoint: .trailing))
+        .cornerRadius(20)
+        .scaleEffect(configuration.isPressed ? 0.8 : 1)
     }
 }
 
