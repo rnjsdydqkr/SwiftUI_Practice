@@ -8,39 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var selectedDate = Date()
+    
+    var presentDateStyle: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy년 MM월 dd일 HH:mm:ss"
+        return formatter.string(from: selectedDate)
+    }
+    
     var body: some View {
         
-        Button {
-            print(("selected"))
-        } label: {
-            HStack {
-                Image(systemName: "square.and.pencil")
-                    .font(.largeTitle)
-                Text("Edit")
-                    .font(.largeTitle)
-            }
+        VStack {
+            DatePicker("Date", selection: $selectedDate, displayedComponents: .date)
+                .labelsHidden()
+            
+            Text("\(presentDateStyle)")
+            Text("\(selectedDate.timeIntervalSince1970)")
         }
-        .buttonStyle(MyCustomButton())
-        
-        Button {
-            print("button 2")
-        } label: {
-            Text("hi")
-        }
-        .buttonStyle(MyCustomButton())
 
-        
-    }
-}
-
-struct MyCustomButton: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-        .foregroundStyle(.white)
-        .padding(20)
-        .background(LinearGradient(colors: [.red, .blue], startPoint: .leading, endPoint: .trailing))
-        .cornerRadius(20)
-        .scaleEffect(configuration.isPressed ? 0.8 : 1)
     }
 }
 
