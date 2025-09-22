@@ -9,32 +9,54 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var progressValue: Float = 0
-    
-    var sliderRange: ClosedRange<Float> {
-        return 0...100
-    }
+    @State private var width: CGFloat = 80
+    @State private var height: CGFloat = 80
     
     var body: some View {
-        VStack {
-            HStack {
-                Image(systemName: "minus")
-                    .onTapGesture {
-                        self.progressValue -= 1
+        VStack(alignment: .myAlignment) {
+            HStack(alignment: .bottom) {
+                Rectangle()
+                    .foregroundStyle(.red)
+                    .frame(width: width, height: height)
+                Rectangle()
+                    .foregroundStyle(.yellow)
+                    .frame(width: width, height: height)
+                    .alignmentGuide(.myAlignment) { vDms in
+                        vDms[.leading]
                     }
-                Slider(value: $progressValue, in: sliderRange)
-                    .accentColor(.red)
-                Image(systemName: "plus")
-                    .onTapGesture {
-                        self.progressValue += 1
-                    }
+                Rectangle()
+                    .foregroundStyle(.blue)
+                    .frame(width: width, height: height)
+                Rectangle()
+                    .foregroundStyle(.orange)
+                    .frame(width: width, height: height)
             }
-            .padding(30)
             
-            Text("\(Int(progressValue))")
-                .font(.largeTitle)
+            Rectangle()
+                .foregroundStyle(.gray)
+                .frame(width: width, height: 20)
+            Rectangle()
+                .foregroundStyle(.gray)
+                .frame(width: width, height: 20)
+                .alignmentGuide(.myAlignment) { vDms in
+                    vDms[.trailing]
+                }
+            Rectangle()
+                .foregroundStyle(.gray)
+                .frame(width: width, height: 20)
         }
     }
+}
+
+extension HorizontalAlignment {
+    
+    enum MyAlign: AlignmentID {
+        static func defaultValue(in context: ViewDimensions) -> CGFloat {
+            context[.leading]
+        }
+    }
+    
+    static let myAlignment = HorizontalAlignment(MyAlign.self)
 }
 
 #Preview {
