@@ -9,21 +9,31 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var selectedDate = Date()
+    @State private var progressValue: Float = 0
     
-    var dateClosedRange: ClosedRange<Date> {
-        let startDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())
-        
-        let endDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())
-        
-        return startDate!...endDate!
+    var sliderRange: ClosedRange<Float> {
+        return 0...100
     }
     
     var body: some View {
-        DatePicker(selection: $selectedDate, in: dateClosedRange) {
-            Text("Select Date")
+        VStack {
+            HStack {
+                Image(systemName: "minus")
+                    .onTapGesture {
+                        self.progressValue -= 1
+                    }
+                Slider(value: $progressValue, in: sliderRange)
+                    .accentColor(.red)
+                Image(systemName: "plus")
+                    .onTapGesture {
+                        self.progressValue += 1
+                    }
+            }
+            .padding(30)
+            
+            Text("\(Int(progressValue))")
+                .font(.largeTitle)
         }
-        .labelsHidden()
     }
 }
 
