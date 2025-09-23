@@ -7,56 +7,48 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    
-    @State private var width: CGFloat = 80
-    @State private var height: CGFloat = 80
-    
-    var body: some View {
-        VStack(alignment: .myAlignment) {
-            HStack(alignment: .bottom) {
-                Rectangle()
-                    .foregroundStyle(.red)
-                    .frame(width: width, height: height)
-                Rectangle()
-                    .foregroundStyle(.yellow)
-                    .frame(width: width, height: height)
-                    .alignmentGuide(.myAlignment) { vDms in
-                        vDms[.leading]
-                    }
-                Rectangle()
-                    .foregroundStyle(.blue)
-                    .frame(width: width, height: height)
-                Rectangle()
-                    .foregroundStyle(.orange)
-                    .frame(width: width, height: height)
-            }
-            
-            Rectangle()
-                .foregroundStyle(.gray)
-                .frame(width: width, height: 20)
-            Rectangle()
-                .foregroundStyle(.gray)
-                .frame(width: width, height: 20)
-                .alignmentGuide(.myAlignment) { vDms in
-                    vDms[.trailing]
-                }
-            Rectangle()
-                .foregroundStyle(.gray)
-                .frame(width: width, height: 20)
-        }
-    }
+struct GalleryItem: Hashable {
+    var color: Color
+    var title: String
 }
 
-extension HorizontalAlignment {
+struct ContentView: View {
     
-    enum MyAlign: AlignmentID {
-        static func defaultValue(in context: ViewDimensions) -> CGFloat {
-            context[.leading]
+    var items = [
+        GalleryItem(color: .red, title: "title1"),
+        GalleryItem(color: .blue, title: "title2"),
+        GalleryItem(color: .gray, title: "title3"),
+        GalleryItem(color: .green, title: "title4"),
+        GalleryItem(color: .orange, title: "title5"),
+        GalleryItem(color: .yellow, title: "title6"),
+        GalleryItem(color: .pink, title: "title7")
+    ]
+    
+    var itemSize = CGSize(width: 100, height: 100)
+    
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 50) {
+                ForEach(items, id: \.self) { item in
+                    GeometryReader { geometry in
+                        Rectangle()
+                            .frame(width: itemSize.width, height: itemSize.height)
+                            .foregroundColor(item.color)
+                            .rotation3DEffect(.degrees(geometry.frame(in: .global).minX) / 2, axis: (x: 0, y: -1, z: 0))
+                        self.testFunc(geometry: geometry)
+                    }.frame(width: itemSize.width, height: itemSize.height)
+                }
+            }
+            .padding(.vertical, 50)
+            .padding(.leading, 150)
         }
+        
     }
     
-    static let myAlignment = HorizontalAlignment(MyAlign.self)
+    func testFunc(geometry: GeometryProxy) -> some View {
+        print(geometry.frame(in: .global).minX)
+        return Spacer()
+    }
 }
 
 #Preview {
